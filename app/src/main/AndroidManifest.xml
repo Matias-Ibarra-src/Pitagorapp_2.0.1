@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pitagora_app_201">
-        <activity android:name=".SubcategoriasScreenGlosarioActivity"></activity>
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".SubcategoriasScreenGlosarioActivity" />
         <activity android:name=".SelectorPreguntaActivity" />
         <activity android:name=".SelectorNivelActivity" />
         <activity android:name=".PreguntaScreenActivity" />

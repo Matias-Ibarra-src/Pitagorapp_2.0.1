@@ -22,6 +22,9 @@
     <string name="edit_done">Edit Done</string>
     <string name="email">Correo</string>
     <string name="password">Contraseña</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="numero">Numero</string>
     <string name="login">Entrar</string>
     <string name="register">Registrarse</string>
 </resources>
