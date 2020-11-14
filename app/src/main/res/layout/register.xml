@@ -90,7 +90,7 @@
 
     <Button
         android:id="@+id/btn_register"
-        android:onClick="registro"
+        android:onClick="onClick"
         android:layout_width="374dp"
         android:layout_height="46dp"
         android:layout_marginTop="48dp"

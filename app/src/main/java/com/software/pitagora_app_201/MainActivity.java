@@ -16,11 +16,20 @@ public class MainActivity extends AppCompatActivity {
 
         Button btn_start = (Button) findViewById(R.id.btn_Start);
         Button btn_glosario = (Button) findViewById(R.id.btn_glosary);
+        Button btn_Entrar = (Button) findViewById(R.id.btn_login);
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), SelectorNivelActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        btn_Entrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), RegisterActivity.class);
                 startActivityForResult(intent, 0);
             }
         });
