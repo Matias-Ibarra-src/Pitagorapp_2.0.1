@@ -89,7 +89,8 @@
         app:layout_constraintTop_toBottomOf="@+id/text_Apellido" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btn_register"
+        android:onClick="registro"
         android:layout_width="374dp"
         android:layout_height="46dp"
         android:layout_marginTop="48dp"
