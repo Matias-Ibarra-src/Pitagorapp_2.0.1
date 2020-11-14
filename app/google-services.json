@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "876163718003",
+    "firebase_url": "https://pitagorappfinal.firebaseio.com",
+    "project_id": "pitagorappfinal",
+    "storage_bucket": "pitagorappfinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876163718003:android:7ed01ec58b0eb99f280306",
+        "android_client_info": {
+          "package_name": "com.software.pitagora_app_201"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876163718003-jh6h7q09gbgrehmq11d1n006g277p3bj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrs86MoBrj2Xm_MUvs3UQ_y98AunNXEKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876163718003-jh6h7q09gbgrehmq11d1n006g277p3bj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
