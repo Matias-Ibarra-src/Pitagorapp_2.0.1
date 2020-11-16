@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pitagora_app_201">
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".TiendaActivity"></activity>
+        <activity android:name=".MainDespuesDeLoginActivity" />
+        <activity android:name=".CambioContraActivity" />
+        <activity android:name=".RecuperarContraActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".SubcategoriasScreenGlosarioActivity" />
         <activity android:name=".SelectorPreguntaActivity" />
         <activity android:name=".SelectorNivelActivity" />

@@ -9,6 +9,10 @@ import android.widget.Button;
 
 public class GlosarioInicioActivity extends AppCompatActivity {
 
+    String contenido1="Numeros";
+    String contenido2="Geometria";
+    String contenido3="Algebra";
+    String contenido4="Probabilidad";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +27,7 @@ public class GlosarioInicioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), SubcategoriasScreenGlosarioActivity.class);
-                intent.putExtra("id","btn_numeros");
+                intent.putExtra("id",contenido1);
                 startActivityForResult(intent, 0);
             }
         });
@@ -32,7 +36,7 @@ public class GlosarioInicioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), SubcategoriasScreenGlosarioActivity.class);
-                intent.putExtra("id","btn_geometria");
+                intent.putExtra("id",contenido2);
                 startActivityForResult(intent, 0);
             }
         });
@@ -41,7 +45,7 @@ public class GlosarioInicioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), SubcategoriasScreenGlosarioActivity.class);
-                intent.putExtra("id","btn_algebra");
+                intent.putExtra("id",contenido3);
                 startActivityForResult(intent, 0);
             }
         });
@@ -50,9 +54,12 @@ public class GlosarioInicioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), SubcategoriasScreenGlosarioActivity.class);
-                intent.putExtra("id","btn_probabilidad");
+                intent.putExtra("id",contenido4);
                 startActivityForResult(intent, 0);
             }
         });
     }
+
+
+
 }

@@ -27,4 +27,13 @@
     <string name="numero">Numero</string>
     <string name="login">Entrar</string>
     <string name="register">Registrarse</string>
+    <string name="puntaje">Puntaje</string>
+    <string name="nombreUsuario">Nombre de Usuario</string>
+    <string name="tienda">Tienda</string>
+    <string name="recuperar">recuperar</string>
+    <string name="precio">precio</string>
+    <string name="Tiendita">"Tiendita"</string>
+    <string name="confirmar">confirmar contraseña</string>
+    <string name="codigo">codigo de confirmacion</string>
+    <string name="btn_cambiar">cambiar</string>
 </resources>

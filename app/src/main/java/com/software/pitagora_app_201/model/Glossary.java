@@ -1,23 +1,27 @@
 package com.software.pitagora_app_201.model;
 
 public class Glossary {
-    private String LocalId;
     private String Categoria;
-
+    private String Contenido;
     public Glossary(){
     }
+    public String getContenido() {
+        return Contenido;
+    }
 
-    public String getLocalId() {
-        return LocalId;
+    public void setContenido(String contenido) {
+        Contenido = contenido;
     }
-    public void setLocalId(String LocalId) {
-        this.LocalId = LocalId;
-    }
+
 
     public String getCategoria() {
         return Categoria;
     }
     public void setCategoria(String Categoria) {
         this.Categoria = Categoria;
+    }
+    @Override
+    public String toString() {
+        return Categoria;
     }
 }
