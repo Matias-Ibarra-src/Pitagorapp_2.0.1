@@ -3,12 +3,9 @@ package com.software.pitagora_app_201;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,14 +18,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.software.pitagora_app_201.model.Persona;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private List<Persona> listPerson = new ArrayList<Persona>();
+    public List<String> listCorreos = new ArrayList<String>();
+    public List<String> listNumeros = new ArrayList<String>();
+    boolean[] flag;
     EditText nomP, appP, correoP, passwordP, numP;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -49,8 +46,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-
-
+    private void inicializarFirebase() {
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+    }
 
     private void limpiarCajas() {
         nomP.setText("");
@@ -60,10 +60,163 @@ public class RegisterActivity extends AppCompatActivity {
         appP.setText("");
     }
 
+    private void validacion() {
+        String nombre = nomP.getText().toString();
+        String correo = correoP.getText().toString();
+        String password = passwordP.getText().toString();
+        String app = appP.getText().toString();
+        String numero = numP.getText().toString();
+        if (nombre.equals("")){
+            nomP.setError("Required");
+        }
+        else if (app.equals("")){
+            appP.setError("Required");
+        }
+        else if (correo.equals("")){
+            correoP.setError("Required");
+        }
+        else if (password.equals("")){
+            passwordP.setError("Required");
+        }
+        else if (numero.equals("")){
+            passwordP.setError("Required");
+        }
+    }
 
     public void onClick(View v) {
-        //aca meti mano
-        boolean flag=true;
+        //aca meti man
+        String nombre = nomP.getText().toString();
+        String correo = correoP.getText().toString();
+        String password = passwordP.getText().toString();
+        String numero = numP.getText().toString();
+        String app = appP.getText().toString();
+        switch (v.getId()) {
+
+            case R.id.btn_register: {
+
+                if (nombre.equals("") || correo.equals("") || password.equals("") || app.equals("") || numero.equals("") || app.equals("")) {
+                    validacion();
+                }
+                else {
+
+                    databaseReference.child("Persona").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            listCorreos.clear();
+                            listNumeros.clear();
+                            for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()){
+                                Persona p = objSnaptshot.getValue(Persona.class);
+                                listCorreos.add(p.getCorreo());
+                                listNumeros.add(p.getNumero());
+                            }
+
+                            for (String src : listCorreos){ Log.d("correo es:", src);}
+                            for (String src : listNumeros){ Log.d("numero es:", src);}
+
+                            if(listCorreos.contains(correo) || listNumeros.contains(numero)){
+                                Log.d("tagsalida","si entra");
+                                numP.setError("numero existente");
+                                listNumeros.clear();
+                                listCorreos.clear();
+                            }else{
+                                if(numP.getText().toString().equals("") || correoP.getText().toString().equals("")){
+                                    listNumeros.clear();
+                                    listCorreos.clear();
+                                }else{
+                                    Log.d("agregar", "agrego");
+                                    Persona p = new Persona();
+                                    //limpiarCajas();
+                                    String nombr = nomP.getText().toString();
+                                    String corre = correoP.getText().toString();
+                                    String passwor = passwordP.getText().toString();
+                                    String numer = numP.getText().toString();
+                                    String ap = appP.getText().toString();
+
+                                    p.setLocalid(UUID.randomUUID().toString());
+                                    p.setNombre(nombr);
+                                    p.setNumero(numer);
+                                    p.setCorreo(corre);
+                                    p.setPassword(passwor);
+                                    p.setApellido(ap);
+                                    databaseReference.child("Persona").child(p.getLocalid()).setValue(p);
+                                    //cargarDatosFirebase(nombre, apellido, telefono, direccion);
+                                    //Toast.makeText(this, "Agregado", Toast.LENGTH_LONG).show();
+                                    limpiarCajas();
+                                    listNumeros.clear();
+                                    listCorreos.clear();
+                                }
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+                break;
+            }
+
+        }
+
+
+    }
+
+
+
+   /* private boolean[] validacionDupli() {
+        String correo = correoP.getText().toString();
+        String numero = numP.getText().toString();
+        final boolean[] flag = {false};
+        databaseReference.child("Persona").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listCorreos.clear();
+                listNumeros.clear();
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()){
+                    Persona p = objSnaptshot.getValue(Persona.class);
+                    listCorreos.add(p.getCorreo());
+                    listNumeros.add(p.getNumero());
+                }
+                if(listCorreos.contains(correo) || listNumeros.contains(numero)){
+                    Log.d("tagsalida","si entra");
+                    flag[0] = true;
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        for(String src : listNumeros){
+            Log.d("el numero es:", src);
+        }
+
+        for(String src : listCorreos){
+            Log.d("el correo es:", src);
+        }
+
+        if(listCorreos.contains(correo) || listNumeros.contains(numero)){
+            Log.d("tagsalida","si entra");
+            return true;
+        }
+        else{
+            return false;
+        }
+
+        return flag;
+    }
+
+    public void onClick(View v) {
+        //aca meti man
         String nombre = nomP.getText().toString();
         String correo = correoP.getText().toString();
         String password = passwordP.getText().toString();
@@ -78,8 +231,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else {
                     flag=validacionDupli();
-                    if(flag){
-                        Log.d("afuera","si pico");
+                    Log.d("flag", String.valueOf(flag[0]));
+                    if(flag[0]){
+                        //Log.d("afuera","si pico");
                         correoP.setError("Numero o correo esta usado");
                         //Toast.makeText(this, "Numero o correo esta usado", Toast.LENGTH_LONG).show();
                     }
@@ -112,85 +266,12 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+    */
 
 
-
-
-
-    private void validacion() {
-        String nombre = nomP.getText().toString();
-        String correo = correoP.getText().toString();
-        String password = passwordP.getText().toString();
-        String app = appP.getText().toString();
-        String numero = numP.getText().toString();
-        if (nombre.equals("")){
-            nomP.setError("Required");
-        }
-        else if (app.equals("")){
-            appP.setError("Required");
-        }
-        else if (correo.equals("")){
-            correoP.setError("Required");
-        }
-        else if (password.equals("")){
-            passwordP.setError("Required");
-        }
-        else if (numero.equals("")){
-            passwordP.setError("Required");
-        }
-    }
-
-
-    private boolean validacionDupli() {
-        String correo = correoP.getText().toString();
-        String numero = numP.getText().toString();
-        databaseReference.child("Persona").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //listPerson.clear();
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()){
-                    Persona p = objSnaptshot.getValue(Persona.class);
-                    listPerson.add(p);
-                    Log.d("tag",p.getCorreo());
-                    Log.d("tag2",correo);
-                    Log.d("tag3",correoP.getText().toString());
-                    if(p.getCorreo().equals(correo) || p.getNumero().equals(numero)){
-                        Log.d("tag4IF",correo);
-                        limpiarCajas();
-                        correoP.setText("");
-                        numP.setText("");
-                        Log.d("tagdelete",correo);
-                        //break;
-                    }
-
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        Log.d("antes del iff","holamundo");
-        if(correoP.getText().toString().equals("") || numP.getText().toString().equals("")){
-            Log.d("tagsalida","si entra");
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    private void inicializarFirebase() {
-        FirebaseApp.initializeApp(this);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-    }
 
 
 }
-
     //LO QUE HICIMOS AYER 
 
     /*
